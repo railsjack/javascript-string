@@ -9,15 +9,9 @@ const tag2Object = function (tagStr) {
 
 const serializeStr = function (str) {
   const objects = [...str.matchAll(/([a-zA-Z0-9 ]+)\=["' ]*([^"' ]+)/g)];
-  return objects.map((object) => ({ [object[1].trim()]: object[2] }));
+  const ret = {};
+  objects && objects.map((object) => (ret[object[1].trim()] = object[2]));
+  return ret;
 };
 
-const input =
-  "<a href='https://google.com' \n\r \
-asdfasdf='123'>\r\n google.com</a>";
-const input2 = "<a>google.com</a>";
-const input3 = "<a></a>";
-
-console.log(tag2Object(input));
-console.log(tag2Object(input2));
-console.log(tag2Object(input3));
+module.exports = tag2Object;
